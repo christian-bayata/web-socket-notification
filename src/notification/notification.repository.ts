@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PropDataInput } from 'src/common/utils/util.interface';
 import {
   Notification,
   NotificationDocument,
@@ -27,4 +28,21 @@ export class NotificationRepository {
       throw new Error(error?.messsage);
     }
   }
+
+  /**
+   * @Responsibility: Repo for counting user notification(s)
+   *
+   * @param data
+   * @returns {Promise<NotificationDocument>}
+   */
+
+  async countNotifications(where: PropDataInput): Promise<number> {
+    try {
+      return await this.notificationModel.countDocuments(where);
+    } catch (error) {
+      throw new Error(error?.messsage);
+    }
+  }
+
+  // count = await this.notificationModel.countDocuments(where);
 }

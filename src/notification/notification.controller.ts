@@ -1,4 +1,4 @@
-import { Controller, Post, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
 import { AppResponse } from 'src/common/app.response';
 import { NotificationService } from './notification.service';
 import { Response } from 'express';
@@ -19,5 +19,17 @@ export class NotificationController {
     return res
       .status(200)
       .json(success('Successfully created notification(s)', 201, data));
+  }
+
+  @Get('/notify')
+  async notifyUser(
+    @Req() req: any,
+    @Res() res: Response,
+    @Query('userId') userId: string,
+  ): Promise<Response> {
+    const data = await this.notificationService.notifyUser(userId);
+    return res
+      .status(200)
+      .json(success('Successfully notified user', 200, data));
   }
 }

@@ -27,4 +27,27 @@ export class NotificationService {
       AppResponse.error(error);
     }
   }
+
+  /**
+   * @Responsibility: dedicated service for notifying user(s)
+   *
+   * @param userId
+   *
+   * @returns {Promise<any>}
+   */
+
+  async notifyUser(userId: string): Promise<any> {
+    try {
+      const count = await this.notificationRepository.countNotifications({
+        userId,
+      });
+
+      // Notify the user using WebSocket
+      this.notificationGateway.sendNotification(userId, count);
+      return;
+    } catch (error) {
+      error.location = `NotificationService.${this.notifyUser.name} method`;
+      AppResponse.error(error);
+    }
+  }
 }
