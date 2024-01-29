@@ -14,10 +14,10 @@ export class NotificationService {
    * @returns {Promise<any>}
    */
 
-  async createPetroData(userId: string): Promise<any> {
+  async createNotifications(userId: string): Promise<any> {
     try {
     } catch (error) {
-      error.location = `NotificationService.${this.createPetroData.name} method`;
+      error.location = `NotificationService.${this.createNotifications.name} method`;
       AppResponse.error(error);
     }
   }
